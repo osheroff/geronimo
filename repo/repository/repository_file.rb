@@ -22,7 +22,7 @@ module Geronimo
         repository.last_commit(filename)
       end
 
-      def authors_of
+      def author_info
         {most_commits: repository.most_commits(filename)}
       end
 
