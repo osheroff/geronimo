@@ -17,5 +17,10 @@ describe 'Geronimo::Repository' do
       c = gitrepo.last_commit(examplefile)
       c.should_not be_nil
     end
+
+    it "can answer stuff about authors" do
+      c = gitrepo.most_commits(examplefile)
+      c.size.should >= 1
+    end
   end
 end

@@ -24,14 +24,32 @@ module Geronimo
         end
       end
 
-      attr_reader :gitbase, :git
-      def initialize(gitbase)
-        @gitbase = gitbase
-        @git = Git.open(gitbase)
+      attr_reader :base_path, :git
+      def initialize(base_path)
+        @base_path = base_path
+        @git = Git.open(@base_path)
       end
 
       def last_commit(filename)
-        @git.log(1).object(filename).first
+        commits_for_file(filename, 1).first
+      end
+
+      def commits_for_file(filename, limit = nil)
+        @git.log(nil).object(filename)
+      end
+
+      def most_commits(filename, limit = nil)
+        authors = commits_for_file(filename).map(&:author)
+
+        grouped = authors.group_by(&:email).map do |email, author_array|
+          {author: author_array.first, count: author_array.size}
+        end
+
+        sorted = grouped.sort do |a, b|
+          b[:count] <=> a[:count]
+        end
+
+        limit ?  sorted[0..limit] : sorted
       end
     end
   end

@@ -21,6 +21,14 @@ module Geronimo
       def last_commit
         repository.last_commit(filename)
       end
+
+      def authors_of
+        {most_commits: repository.most_commits(filename)}
+      end
+
+      def relative_path
+        filename.sub(%r{^#{repository.base_path}/?}, '')
+      end
     end
   end
 end

@@ -1,10 +1,10 @@
 require 'bundler/setup'
 require 'sinatra'
 
-require_relative '../repo/repository/file'
+require_relative '../repo/repository/repository_file'
 
 get '/' do
   file = params[:file]
-  @file_info = Geronimo::Repository::RepositoryFile.get(file)
+  @file = Geronimo::Repository::RepositoryFile.get(file)
   erb :index
 end
