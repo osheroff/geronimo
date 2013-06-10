@@ -2,7 +2,9 @@ source :rubygems
 
 gem 'git'
 gem 'sinatra'
-gem 'zbatery'
+gem 'rainbows'
 gem 'rack-test'
 gem 'rspec'
-
+gem 'json'
+gem 'multi_json'
+gem 'sinatra-contrib'
