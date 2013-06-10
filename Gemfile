@@ -2,7 +2,7 @@ source :rubygems
 
 gem 'git'
 gem 'sinatra'
-gem 'thin'
+gem 'zbatery'
 gem 'rack-test'
 gem 'rspec'
 
