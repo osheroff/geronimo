@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Geronimo Information for <%= @file.filename %></title>
+  </head>
+  <body>
+    <h1><%= @file.relative_path %></h1>
+    <div>
+      Last Commit: <%= erb :commit_short, locals: {commit: @file.last_commit} %>
+    </div>
+    <div>
+      Most Commits:
+        <ul>
+        <% @file.author_info[:most_commits][0..2].each do |h| %>
+          <li><%= h[:author].name %> <%= h("<" + h[:author].email + ">") %> (<%= h[:count] %> commits)</li>
+        <% end %>
+        <% if @file.author_info[:most_commits].size > 2 %>
+          <li><a href="/most_commits">more...</a></li>
+        <% end %>
+      </ul>
+    </div>
+  </body>
+</html>
