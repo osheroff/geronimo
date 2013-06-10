@@ -14,7 +14,8 @@ describe 'Geronimo::Repository' do
     let (:examplefile) { File.dirname(__FILE__) }
 
     it "can answer stuff about last_commit" do
-      gitrepo.last_commit(examplefile).should_not be_nil
+      c = gitrepo.last_commit(examplefile)
+      c.should_not be_nil
     end
   end
 end

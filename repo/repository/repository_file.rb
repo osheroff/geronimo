@@ -2,7 +2,7 @@ require_relative '../repository'
 
 module Geronimo
   module Repository
-    class File
+    class RepositoryFile
       class <<self
         def get(filename)
           new(filename)
@@ -13,8 +13,8 @@ module Geronimo
 
       def initialize(filename)
         @filename = filename
-        @basename = ::File.basename(filename)
-        @dirname = ::File.dirname(filename)
+        @basename = File.basename(filename)
+        @dirname = File.dirname(filename)
         @repository = Geronimo::Repository.from_path(dirname)
       end
 
