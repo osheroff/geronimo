@@ -29,6 +29,10 @@ module Geronimo
       def relative_path
         filename.sub(%r{^#{repository.base_path}/?}, '')
       end
+
+      def related_files
+        repository.related_files(filename)
+      end
     end
   end
 end

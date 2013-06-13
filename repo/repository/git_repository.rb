@@ -1,5 +1,7 @@
 require 'git'
 require_relative 'base_repository'
+require_relative 'git_commit'
+
 
 module Geronimo
   module Repository
@@ -50,6 +52,18 @@ module Geronimo
         end
 
         limit ?  sorted[0..limit] : sorted
+      end
+
+      def related_files(filename)
+        related = {}
+        commits = commits_for_file(filename).map do |c|
+          c.diff_parent.map(&:path)
+        end
+        commits.flatten.group_by { |c| c }.map do |k, v|
+          {:filename => k, :count => v.size}
+        end.sort do |a, b|
+          b[:count] <=> a[:count]
+        end
       end
     end
   end

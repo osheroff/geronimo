@@ -6,6 +6,13 @@ require 'sinatra/json'
 
 require_relative '../repo/repository/repository_file'
 
+Thread.new do
+  while true
+    $current_file = File.read("/tmp/geronimo.current_file").chomp
+    sleep 0.3
+  end
+end
+
 helpers do
   def h(text)
     Rack::Utils.escape_html(text)

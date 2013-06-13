@@ -22,5 +22,9 @@ describe 'Geronimo::Repository' do
       c = gitrepo.most_commits(examplefile)
       c.size.should >= 1
     end
+
+    it "can get related files" do
+      c = gitrepo.related_files(examplefile)
+    end
   end
 end
