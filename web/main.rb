@@ -8,14 +8,25 @@ require_relative '../repo/repository/repository_file'
 
 Thread.new do
   while true
-    $current_file = File.read("/tmp/geronimo.current_file").chomp
-    sleep 0.3
+    fname = File.read("/tmp/geronimo.current_file").chomp
+    if $current_file != fname
+      repo_file = Geronimo::Repository::RepositoryFile.get(fname)
+      if repo_file
+        $repo_file = repo_file
+        $current_file = fname
+      end
+    end
+    sleep 0.1
   end
 end
 
 helpers do
   def h(text)
     Rack::Utils.escape_html(text)
+  end
+
+  def gravatar_url(author, size=50)
+    "http://www.gravatar.com/avatar/" + Digest::MD5.hexdigest(author.email.strip.downcase) + "?s=#{size}"
   end
 end
 
@@ -24,8 +35,7 @@ get '/' do
 end
 
 get '/file_info' do
-  file = $current_file
-  @file = Geronimo::Repository::RepositoryFile.get(file)
+  @file = $repo_file
   erb :file_info
 end
 
@@ -38,8 +48,4 @@ get '/poll' do
     sleep 0.1
   end
   json({update: false})
-end
-
-get '/update_current_file' do
-  $current_file = params[:file]
 end

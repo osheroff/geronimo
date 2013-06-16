@@ -5,7 +5,8 @@ module Geronimo
     class RepositoryFile
       class <<self
         def get(filename)
-          new(filename)
+          f = new(filename)
+          f && f.valid ? f : nil
         end
       end
 
@@ -16,6 +17,10 @@ module Geronimo
         @basename = File.basename(filename)
         @dirname = File.dirname(filename)
         @repository = Geronimo::Repository.from_path(dirname)
+      end
+
+      def valid
+        @repository
       end
 
       def last_commit

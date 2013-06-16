@@ -57,8 +57,13 @@ module Geronimo
       def related_files(filename)
         related = {}
         commits = commits_for_file(filename).map do |c|
-          c.diff_parent.map(&:path)
-        end
+          if c.parent
+            begin
+              c.diff_parent.map(&:path)
+            rescue
+            end
+          end
+        end.compact
         commits.flatten.group_by { |c| c }.map do |k, v|
           {:filename => k, :count => v.size}
         end.sort do |a, b|

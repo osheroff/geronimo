@@ -10,10 +10,10 @@
     </div>
     <div>
       <h3>Most Commits</h3>
-        <ul>
-        <% @file.author_info[:most_commits][0..2].each do |h| %>
-          <li><%= h[:author].name %> <%= h("<" + h[:author].email + ">") %> (<%= h[:count] %> commits)</li>
+        <% @file.author_info[:most_commits][0..5].each do |a| %>
+          <img src="<%= gravatar_url(a[:author])%>" alt="<%= h(a[:author].name) %>" width=50 height=50>
         <% end %>
+
         <% if @file.author_info[:most_commits].size > 2 %>
           <li><a href="/most_commits">more...</a></li>
         <% end %>
