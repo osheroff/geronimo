@@ -23,7 +23,7 @@
         <h2>Related Files</h2>
         <ul>
         <% @file.related_files[0..5].each do |h| %>
-          <li><%= h[:filename] %> <%= h[:count] %></li>
+          <li><a href="#/open_file/<%= h[:filename] %>"><%= h[:filename] %></a></li>
         <% end %>
         </ul>
       </div>

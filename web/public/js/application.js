@@ -22,3 +22,12 @@ $(document).ready(function () {
 
   poll();
 });
+
+var app = Sammy('#main', function() {
+  this.get(/\/#\/open_file\/(.*)/, function() {
+    var file = this.params['splat'];
+  });
+});
+
+// start the application
+app.run('#/');
