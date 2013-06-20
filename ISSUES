@@ -1,0 +1,20 @@
+
+x most commits is not super useful.  blame for the current line, maybe.  
+x Or maybe just a little list of gravatar images of people involved.  No need for full names.
+
+put up a damn github link on last commit.  new browser window?  ahhh new browser window on host
+much better formatting of last commit
+cache commits in redis
+syntax checker
+
+related files: tap to open, tap to run tests
+put working files in a stack in the browser
+different repos, ability to hit a button for "rake test"?
+really need to go to vim-python or vim-ruby. 
+try guarding against calling too much
+MUST BE EXTENSIBLE
+tap picture for commits-by-author
+iTerm integration, pop message when matching a regexp -- for like "your server is ready"
+backbone
+
+
