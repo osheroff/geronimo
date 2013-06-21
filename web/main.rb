@@ -6,20 +6,6 @@ require 'sinatra/json'
 
 require_relative '../repo/repository/repository_file'
 
-Thread.new do
-  while true
-    fname = File.read("/tmp/geronimo.current_file").chomp
-    if $current_file != fname
-      repo_file = Geronimo::Repository::RepositoryFile.get(fname)
-      if repo_file
-        $repo_file = repo_file
-        $current_file = fname
-      end
-    end
-    sleep 0.1
-  end
-end
-
 helpers do
   def h(text)
     Rack::Utils.escape_html(text)
@@ -48,4 +34,16 @@ get '/poll' do
     sleep 0.1
   end
   json({update: false})
+end
+
+post "/editor/ping" do
+  request.body.rewind  # in case someone already read it
+  data = JSON.parse request.body.read
+  fname = data['file']
+  repo_file = Geronimo::Repository::RepositoryFile.get(fname)
+  if repo_file
+    $repo_file = repo_file
+    $current_file = fname
+  end
+  json({status: "ok"})
 end

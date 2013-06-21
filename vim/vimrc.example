@@ -1,0 +1,13 @@
+function Geronimo()
+  :ruby $geronimo.cursor_moved
+endfunction
+
+au CursorMoved * :call Geronimo()
+au CursorMovedI * :call Geronimo()
+
+ruby << EOF
+  load '/Users/ben/src/geronimo/vim/geronimo.rb'
+  $geronimo = Geronimo::Vim.new
+EOF
+
+

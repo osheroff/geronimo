@@ -1,0 +1,2 @@
+gem 'geronimo_client', :path => "../geronimo_client"
+gem 'uuid'
