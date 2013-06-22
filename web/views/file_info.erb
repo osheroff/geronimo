@@ -1,32 +1,8 @@
-<html>
-  <head>
-    <title>Geronimo Information for <%= @file.filename %></title>
-  </head>
-  <body>
-    <h1><%= @file.relative_path %></h1>
-    <div>
-      <h3>Last Commit</h3>
-      <%= erb :commit_short, locals: {commit: @file.last_commit} %>
-    </div>
-    <div>
-      <h3>Most Commits</h3>
-        <% @file.author_info[:most_commits][0..5].each do |a| %>
-          <img src="<%= gravatar_url(a[:author])%>" alt="<%= h(a[:author].name) %>" width=50 height=50>
-        <% end %>
+<% @files[0..5].each do |file| %>
+  <% if file.repository_file %>
+    <%= erb :file_info_partial, locals: {file: file} %>
+  <% end %>
+<% end %>
 
-        <% if @file.author_info[:most_commits].size > 2 %>
-          <li><a href="/most_commits">more...</a></li>
-        <% end %>
-      </ul>
-    </div>
-      <div>
-        <h2>Related Files</h2>
-        <ul>
-        <% @file.related_files[0..5].each do |h| %>
-          <li><a href="#/open_file/<%= h[:filename] %>"><%= h[:filename] %></a></li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  </body>
-</html>
+
+

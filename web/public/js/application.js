@@ -1,6 +1,6 @@
 var $ = jQuery;
 $(document).ready(function () {
-  var currentFile = null;
+  var currentHash = null;
 
   var fetchFileInfo = function() { 
     $.get('/file_info', function(data) { 
@@ -9,9 +9,9 @@ $(document).ready(function () {
   };
 
   var poll = function() { 
-    $.getJSON('/poll', {file: currentFile}, function(data) { 
+    $.getJSON('/poll', {hash: currentHash}, function(data) { 
       if ( data.update ) {
-        currentFile = data.file;
+        currentHash = data.hash;
         fetchFileInfo();
         setTimeout(poll, 100);
       } else {

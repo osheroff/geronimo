@@ -1,0 +1,48 @@
+.geronimo-file-info:last-child {
+  border-bottom: 2px;
+}
+
+
+.geronimo-file-info { 
+  padding: 10px; 
+  border-style: solid;
+  border-width: 2px; 
+  border-color: black;
+  border-bottom: 0px;
+  font-size: 12px;
+}
+
+.geronimo-file-info h1 { 
+  font-size: 16px;
+}
+
+.geronimo-file-info h2 { 
+  font-size: 14px;
+}
+
+ 
+.file-list ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ 
+.file-list li {
+  font: 200 12px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+ 
+.file-list li:last-child {
+  border: none;
+}
+ 
+.file-list li a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+}
+ 
+.file-list li a:hover {
+  background: #f6f6f6;
+}
+
