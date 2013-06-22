@@ -36,7 +36,7 @@ module Geronimo
       end
 
       def related_files
-        repository.related_files(filename)
+        repository.related_files(filename).reject { |f| f[:filename] == relative_path }
       end
     end
   end

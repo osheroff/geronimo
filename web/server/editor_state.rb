@@ -12,7 +12,7 @@ module Geronimo
         @files = Dir.glob("/tmp/geronimo.*").map do |f|
           info = JSON.parse(File.read(f))
           EditorFile.new(info.merge('last_activity' => File.mtime(f)))
-        end.uniq { |f| f.filename }.sort_by { |f| -f.mtime.to_i }
+        end.select(&:active?).uniq { |f| f.filename }.sort_by { |f| -f.mtime.to_i }
       end
 
       def hash
