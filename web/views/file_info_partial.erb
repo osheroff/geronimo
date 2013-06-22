@@ -1,5 +1,10 @@
 <div class="geronimo-file-info">
-  <h1><%= file.repository_file.relative_path %></h1>
+  <h1>
+    <% if type = file.type %>
+      <img src="/images/filetype/<%= type %>.png">
+    <% end %>
+    <%= file.repository_file.relative_path %>
+  </h1>
   <% if commit = file.repository_file.last_commit %>
     <div>
       <h2>Last Commit</h3>

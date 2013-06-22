@@ -6,7 +6,7 @@ module Geronimo
         @filename = hash['file']
         @pid = hash['pid']
         @uuid = hash['uuid']
-        @mtime = File.mtime(@filename) rescue nil
+        @mtime = hash['last_activity']
       end
 
       def hash
@@ -24,10 +24,23 @@ module Geronimo
       end
 
       def repository_file
-        if !defined?(@repo_file)
-          @repo_file = Geronimo::Repository::RepositoryFile.get(@filename)
+        @repo_file ||= Geronimo::Repository::RepositoryFile.get(@filename)
+      end
+
+      def type
+        case File.extname(@filename)
+        when ".rb", ".erb"
+          :ruby
+        when ".js"
+          :javascript
+        when ".css"
+          :css
+        when ""
+          case File.basename(@filename)
+            when "Gemfile", "Gemfile.lock", "Rakefile"
+              :ruby
+          end
         end
-        @repo_file
       end
     end
   end
