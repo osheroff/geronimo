@@ -2,7 +2,6 @@ require 'git'
 require_relative 'base_repository'
 require_relative 'git_commit'
 
-
 module Geronimo
   module Repository
     class GitRepository < BaseRepository
@@ -33,11 +32,11 @@ module Geronimo
       end
 
       def last_commit(filename)
-        commits_for_file(filename, 1).first
+        commits_for_file(filename).first
       end
 
-      def commits_for_file(filename, limit = nil)
-        @git.log(nil).object(filename)
+      def commits_for_file(filename)
+        @commits ||= @git.log(nil).object(filename)
       end
 
       def most_commits(filename, limit = nil)
@@ -57,10 +56,13 @@ module Geronimo
       def related_files(filename)
         related = {}
         commits = commits_for_file(filename).map do |c|
-          if c.parent
+          if c && c.parent
             begin
-              c.diff_parent.map(&:path)
-            rescue
+              related_files = Geronimo::Repository::Cache.cache("git/#{c.sha}/#{c.parent.sha}") do
+                c.diff_parent.map(&:path)
+              end
+            rescue StandardError => e
+              puts e
             end
           end
         end.compact

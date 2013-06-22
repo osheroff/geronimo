@@ -8,5 +8,6 @@ gem 'rspec'
 gem 'json'
 gem 'multi_json'
 gem 'sinatra-contrib'
+gem 'redis'
 
 gem 'debugger'
