@@ -8,6 +8,7 @@ module GeronimoClient
     def initialize()
       @url = 'http://localhost:4567'
       @connection = Faraday.new(:url => @url)
+      @status_filename = "/tmp/geronimo.#{uuid}"
     end
 
     def uuid
@@ -15,22 +16,24 @@ module GeronimoClient
     end
 
     def set_current_file(file)
-      @current_file = file
-      ping!
+      if @current_file != file
+        @current_file = file
+        write_status
+      else
+        ping!
+      end
     end
 
-    def post(url, obj)
-      @connection.post do |req|
-        req.url url
-        req.headers['Content-Type'] = 'application/json'
-        req.body = obj.merge("session" => uuid).to_json
-      end
-    rescue
-      nil
+    def write_status
+      File.open(@status_filename, "w+") { |f| f.write(status.to_json) }
+    end
+
+    def status
+      {:uuid => uuid, :file => @current_file, :pid => $$}
     end
 
     def ping!
-      post("/editor/ping", :file => @current_file)
+      File.utime(Time.now, Time.now, @status_filename)
     end
   end
 end

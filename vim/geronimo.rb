@@ -24,6 +24,7 @@ module Geronimo
 
     def cursor_moved
       @current_file = VIM::evaluate("fnamemodify(bufname('%'), ':p')")
+
       Thread.new do
         if @mutex.try_lock
           begin
