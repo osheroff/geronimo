@@ -8,15 +8,10 @@ require 'digest/md5'
 
 require_relative '../repo/repository/repository_file'
 require_relative 'server/editor_state'
+require_relative 'server/helpers'
 
 helpers do
-  def h(text)
-    Rack::Utils.escape_html(text)
-  end
-
-  def gravatar_url(author, size=50)
-    "http://www.gravatar.com/avatar/" + Digest::MD5.hexdigest(author.email.strip.downcase) + "?s=#{size}"
-  end
+  include Geronimo::Server::Helpers
 end
 
 Thread.abort_on_exception = true
