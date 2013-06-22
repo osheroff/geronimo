@@ -21,6 +21,10 @@
   font-size: 14px;
 }
 
+.geronimo-file-info img { 
+  padding: 2px;
+  vertical-align: middle;
+}
  
 .file-list ul {
   list-style-type: none;
@@ -51,4 +55,9 @@
 #most-commits {
   vertical-align: top;
   float: right;
+}
+
+.geronimo-syntax-errors { 
+  display: none;
+  background: #f6f6f6;
 }

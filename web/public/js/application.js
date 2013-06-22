@@ -2,9 +2,17 @@ var $ = jQuery;
 $(document).ready(function () {
   var currentHash = null;
 
+  var rewireJS = function () {
+    $('.show-syntax-errors').click(function (event) {
+      $(event.target).next('.geronimo-syntax-errors').show();
+      return false;
+    });
+  };
+
   var fetchFileInfo = function() { 
     $.get('/file_info', function(data) { 
       $('#geronimo').html(data);
+      rewireJS();
     });
   };
 
@@ -20,7 +28,7 @@ $(document).ready(function () {
     });
   }
 
-  poll();
+  $(document).ready(poll);
 });
 
 var app = Sammy('#main', function() {

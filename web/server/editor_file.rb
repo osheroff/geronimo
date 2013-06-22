@@ -1,16 +1,16 @@
 module Geronimo
   module Server
     class EditorFile
-      attr_reader :filename, :pid, :mtime
+      attr_reader :filename, :pid, :last_activity
       def initialize(hash)
         @filename = hash['file']
         @pid = hash['pid']
         @uuid = hash['uuid']
-        @mtime = hash['last_activity']
+        @last_activity = hash['last_activity']
       end
 
       def hash
-        [@filename, @mtime, @pid].hash
+        [@filename, @last_activity, @pid].hash
       end
 
       def active?
@@ -25,6 +25,18 @@ module Geronimo
 
       def repository_file
         @repo_file ||= Geronimo::Repository::RepositoryFile.get(@filename)
+      end
+
+      def syntax_ok?
+        case type
+          when :ruby
+            return :none if File.extname(@filename) == ".erb"
+            output = `ruby -c "#{@filename}" 2>&1`
+            return true if $?.success?
+            output.split("\n").map(&:strip).join("\n")
+          else
+            :none
+          end
       end
 
       def type

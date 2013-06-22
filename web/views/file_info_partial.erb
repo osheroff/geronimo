@@ -16,6 +16,18 @@
       <%= file.repository_file.relative_path %>
     </h1>
   </div>
+  <% if (syntax = file.syntax_ok?) != :none %>
+    <% if syntax == true %>
+      <img src="/images/good-22x22.png">Syntax OK
+    <% else %>
+      <img src="/images/bad-22x22.png"><a class="show-syntax-errors" href="#">Syntax errors</a>
+      <div class="geronimo-syntax-errors">
+        <pre>
+          <%= h(syntax) %>
+        </pre>
+      </div>
+    <% end %>
+  <% end %>
   <% if commit = file.repository_file.last_commit %>
     <div>
       <h2>Last Commit</h3>
