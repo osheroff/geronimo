@@ -1,4 +1,13 @@
 <div class="geronimo-file-info">
+  <% if (authors = file.repository_file.author_info[:most_commits]) && !authors.empty? %>
+    <div id="most-commits">
+      <h2>Most Commits</h3>
+        <% authors[0..5].each do |a| %>
+          <img src="<%= gravatar_url(a[:author])%>" alt="<%= h(a[:author].name) %>" width=50 height=50>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="geronimo-file-info-header">
     <h1>
       <% if type = file.type %>
@@ -11,15 +20,6 @@
     <div>
       <h2>Last Commit</h3>
       <%= erb :commit_short, locals: {commit: file.repository_file.last_commit} %>
-    </div>
-  <% end %>
-  <% if (authors = file.repository_file.author_info[:most_commits]) && !authors.empty? %>
-    <div>
-      <h2>Most Commits</h3>
-        <% authors[0..5].each do |a| %>
-          <img src="<%= gravatar_url(a[:author])%>" alt="<%= h(a[:author].name) %>" width=50 height=50>
-        <% end %>
-      </ul>
     </div>
   <% end %>
   <% if (related = file.repository_file.related_files) && !related.empty? %>

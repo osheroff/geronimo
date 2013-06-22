@@ -5,6 +5,7 @@
 
 .geronimo-file-info { 
   padding: 10px; 
+  padding-top: 0px;
   border-style: solid;
   border-width: 2px; 
   border-color: black;
@@ -30,6 +31,7 @@
 .file-list li {
   font: 200 12px/1.5 Helvetica, Verdana, sans-serif;
   border-bottom: 1px solid #ccc;
+  width: 40%;
 }
  
 .file-list li:last-child {
@@ -46,3 +48,7 @@
   background: #f6f6f6;
 }
 
+#most-commits {
+  vertical-align: top;
+  float: right;
+}
