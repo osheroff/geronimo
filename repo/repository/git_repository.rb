@@ -1,6 +1,5 @@
 require 'git'
 require_relative 'base_repository'
-require_relative 'git_commit'
 
 module Geronimo
   module Repository

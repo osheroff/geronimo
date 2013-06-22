@@ -1,10 +1,12 @@
 <div class="geronimo-file-info">
-  <h1>
-    <% if type = file.type %>
-      <img src="/images/filetype/<%= type %>.png">
-    <% end %>
-    <%= file.repository_file.relative_path %>
-  </h1>
+  <div class="geronimo-file-info-header">
+    <h1>
+      <% if type = file.type %>
+        <img src="/images/filetype/<%= type %>-22x22.png">
+      <% end %>
+      <%= file.repository_file.relative_path %>
+    </h1>
+  </div>
   <% if commit = file.repository_file.last_commit %>
     <div>
       <h2>Last Commit</h3>

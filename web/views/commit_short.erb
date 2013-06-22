@@ -1,1 +1,1 @@
-<span><%= commit.sha[0..6] %> <%= commit.message %></span>
+<span><%= commit.sha[0..6] %> <%= format_commit_message(commit.message) %></span>
