@@ -9,6 +9,7 @@ module GeronimoClient
       @url = 'http://localhost:4567'
       @connection = Faraday.new(:url => @url)
       @status_filename = "/tmp/geronimo.#{uuid}"
+      @command_filename = "/tmp/geronimo.#{uuid}.commands"
     end
 
     def uuid
@@ -34,6 +35,22 @@ module GeronimoClient
 
     def ping!
       File.utime(Time.now, Time.now, @status_filename)
+    end
+
+    def command_queue
+      @command_queue ||= []
+    end
+
+    def read_commands
+      if File.exist?(@command_filename)
+        command_queue.concat File.readlines(@command_filename).map { |l| JSON.parse(l) }
+        File.unlink(@command_filename)
+      end
+    end
+
+    def get_command
+      read_commands
+      command_queue.shift
     end
   end
 end

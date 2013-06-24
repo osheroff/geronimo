@@ -1,7 +1,7 @@
 module Geronimo
   module Server
     class EditorFile
-      attr_reader :filename, :pid, :last_activity
+      attr_reader :filename, :pid, :last_activity, :uuid
       def initialize(hash)
         @filename = hash['file']
         @pid = hash['pid']

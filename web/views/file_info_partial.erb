@@ -39,7 +39,9 @@
       <h2>Related Files</h2>
       <ul>
       <% related[0..3].each do |h| %>
-        <li class="file-list"><a href="#/open_file/<%= h[:filename] %>"><%= h[:filename] %></a></li>
+        <li class="file-list"><a class="open-editor-file" href="#"
+                                  data-uuid="<%= file.uuid %>"
+                                  data-filename="<%= h[:fullpath] %>"><%= h[:filename] %></a></li>
       <% end %>
       </ul>
     </div>

@@ -33,7 +33,7 @@
 }
  
 .file-list li {
-  font: 200 12px/1.5 Helvetica, Verdana, sans-serif;
+  font: 200 14px/1.5 Helvetica, Verdana, sans-serif;
   border-bottom: 1px solid #ccc;
   width: 40%;
 }
@@ -54,6 +54,7 @@
 
 #most-commits {
   vertical-align: top;
+  text-align: right;
   float: right;
 }
 

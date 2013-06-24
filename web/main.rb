@@ -45,3 +45,13 @@ get '/poll' do
   end
   json({update: false})
 end
+
+get '/open_file_in_editor' do
+  file = params[:filename]
+  uuid = params[:uuid]
+
+  File.open("/tmp/geronimo.#{uuid}.commands", "a+") do |f|
+    f.puts({command: 'open-file', filename: file}.to_json)
+  end
+  json({status: 'ok'})
+end

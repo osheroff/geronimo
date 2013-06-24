@@ -7,6 +7,13 @@ $(document).ready(function () {
       $(event.target).next('.geronimo-syntax-errors').show();
       return false;
     });
+
+    $('.open-editor-file').click(function (event) { 
+      var href = $(event.target);
+      $.getJSON('/open_file_in_editor', {uuid: href.data('uuid'), filename: href.data('filename')}, function(data) { 
+
+      });
+    });
   };
 
   var fetchFileInfo = function() { 
@@ -31,11 +38,3 @@ $(document).ready(function () {
   $(document).ready(poll);
 });
 
-var app = Sammy('#main', function() {
-  this.get(/\/#\/open_file\/(.*)/, function() {
-    var file = this.params['splat'];
-  });
-});
-
-// start the application
-app.run('#/');
