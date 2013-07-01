@@ -66,7 +66,7 @@ module Geronimo
           end
         end.compact
         commits.flatten.group_by { |c| c }.map do |k, v|
-          {:filename => k, :count => v.size}
+          {:filename => k, :count => v.size, :fullpath => @base_path + "/" + k}
         end.sort do |a, b|
           b[:count] <=> a[:count]
         end

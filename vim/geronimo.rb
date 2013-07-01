@@ -25,10 +25,7 @@ module Geronimo
     def cursor_moved
       @current_file = VIM::evaluate("fnamemodify(bufname('%'), ':p')")
 
-      while (cmd = client.get_command)
-        parse_command(cmd)
-      end
-
+      run_commands
       Thread.new do
         if @mutex.try_lock
           begin
@@ -41,10 +38,15 @@ module Geronimo
       end
     end
 
+    def run_commands
+      while (cmd = client.get_command)
+        parse_command(cmd)
+      end
+    end
+
     def parse_command(cmd)
       case cmd['command']
       when 'open-file'
-        raise cmd.to_s
         VIM::command("sp #{cmd['filename']}")
       end
     end
