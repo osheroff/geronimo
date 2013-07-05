@@ -1,13 +1,22 @@
 function Geronimo()
-  :ruby $geronimo.cursor_moved
+  ruby $geronimo.cursor_moved
 endfunction
-
-au CursorMoved * :call Geronimo()
-au CursorMovedI * :call Geronimo()
 
 ruby << EOF
   load '/Users/ben/src/geronimo/vim/geronimo.rb'
   $geronimo = Geronimo::Vim.new
 EOF
 
+au CursorHold  * call Timer()
+au CursorHoldI * call InsertTimer()
+au CursorMoved * call Geronimo()
+au CursorMovedI * call Geronimo()
+function Timer()
+  call feedkeys("f\e")
+  ruby $geronimo.run_commands
+endfunction
 
+function InsertTimer()
+  call feedkeys("\<ESC>a")
+  ruby $geronimo.run_commands
+endfunction
