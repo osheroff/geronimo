@@ -17,9 +17,7 @@
     </h1>
   </div>
   <% if (syntax = file.syntax_ok?) != :none %>
-    <% if syntax == true %>
-      <img src="/images/good-22x22.png">Syntax OK
-    <% else %>
+    <% if syntax != true %>
       <img src="/images/bad-22x22.png"><a class="show-syntax-errors" href="#">Syntax errors</a>
       <div class="geronimo-syntax-errors">
         <pre>
